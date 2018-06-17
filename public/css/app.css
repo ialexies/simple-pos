@@ -2,6 +2,14 @@
   font-weight: bold;
 }
 
+.pagination {
+  font-size: .8rem !important;
+}
+
+.pagination .page-item .page-link {
+  padding: 6px !important;
+}
+
 /*!
  * Bootstrap v4.1.1 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors

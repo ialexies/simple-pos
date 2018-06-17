@@ -11,22 +11,66 @@
         
         <ul class="pagination">
           
-          <li class="page-item" v-bind:class="[{disabled: !pagination.prev_page_url}]" >
-            <a class="page-link" href="#" @click="fetchTransaction(pagination.prev_page_url)">Previous</a>
+          <li class="page-item" @click="fetchTransaction(pagination.first_page_url)" >
+            <a class="page-link font-weight-bold" href="#" @click="fetchTransaction()">First</a>
           </li>
-          <li  class="page-item disabled" >
-              <a  class="page-link text-dark" href="#">
-                page {{pagination.current_page}} of {{pagination.last_page}}
+
+          <li class="page-item" v-bind:class="[{disabled: !pagination.prev_page_url}]" >
+            <a class="page-link text-dark font-weight-light" href="#" @click="fetchTransaction(pagination.prev_page_url)">prev</a>
+          </li>
+
+          <li class="page-item"  >
+              <a class="page-link text-dark font-weight-light" v-bind:class="[{'d-none': pagination.current_page > 3}]" href="#" @click="fetchTransaction(pagination.custom_page_url+'?page=1')">
+                1
+              </a>
+              <a class="page-link text-dark font-weight-light" v-bind:class="[{'d-none': pagination.current_page <= 3}]" href="#" @click="fetchTransaction(pagination.custom_page_url+'?page='+(pagination.current_page-2))">
+                {{pagination.current_page-2}}
               </a>
           </li>
-          <div v-for="index in pagination.last_page" :key="index">
-            <li class="page-item"  >
-              <a class="page-link" href="#" @click="fetchTransaction(pagination.custom_page_url+'?page='+index)">{{index}}</a>
-            </li>
-          </div>
-          <li class="page-item" v-bind:class="[{disabled: !pagination.next_page_url}]" >
-            <a class="page-link" href="#" @click="fetchTransaction(pagination.next_page_url)">Next</a>
+
+          <li class="page-item"  >
+              <a class="page-link text-dark font-weight-light" v-bind:class="[{'d-none': pagination.current_page > 2}]" href="#" @click="fetchTransaction(pagination.custom_page_url+'?page=2')">
+                2
+              </a>
+              
+              <a class="page-link  text-dark font-weight-light" v-bind:class="[{'d-none': pagination.current_page <= 2}]" href="#"  @click="fetchTransaction(pagination.custom_page_url+'?page='+(pagination.current_page-1))" >
+                {{pagination.current_page-1}}
+              </a>
           </li>
+
+          <!-- Current Page info -->
+          <li  class="page-item disabled" >
+              <a  class="page-link text-light bg-info" href="#">
+                 {{pagination.current_page}} of {{pagination.last_page}}
+              </a>
+          </li>
+
+          <li class="page-item"   >
+              <a class="page-link  text-dark font-weight-light" v-bind:class="[{'d-none': pagination.current_page >= pagination.last_page-1}]" href="#"  @click="fetchTransaction(pagination.custom_page_url+'?page='+(pagination.current_page+1))" >
+                {{pagination.current_page+1}}
+              </a>
+              <a class="page-link  text-dark font-weight-light" v-bind:class="[{'d-none': pagination.current_page < pagination.last_page-1}]" href="#"  @click="fetchTransaction(pagination.custom_page_url+'?page='+(pagination.last_page-1))" >
+                {{pagination.last_page-1}}
+              </a>
+          </li>
+
+          <li class="page-item"  >
+              <a class="page-link  text-dark font-weight-light " v-bind:class="[{'d-none':  pagination.current_page >=  pagination.last_page-1}]" href="#"  @click="fetchTransaction(pagination.custom_page_url+'?page='+(pagination.current_page+2))" >
+                {{pagination.current_page+2}}
+              </a>
+              <a class="page-link  text-dark font-weight-light" v-bind:class="[{'d-none': pagination.current_page < pagination.last_page-1}]" href="#"  @click="fetchTransaction(pagination.custom_page_url+'?page='+(pagination.last_page))" >
+                {{pagination.last_page}}
+              </a>
+          </li>
+
+          <li class="page-item" v-bind:class="[{disabled: !pagination.next_page_url}]" >
+            <a class="page-link text-dark font-weight-light" href="#" @click="fetchTransaction(pagination.next_page_url)">next</a>
+          </li>
+
+          <li class="page-item"  >
+            <a class="page-link font-weight-bold" href="#" @click="fetchTransaction(pagination.last_page_url)">Last</a>
+          </li>
+          
         </ul>
       </nav>
   </div>
@@ -74,8 +118,10 @@
         let pagination={
           current_page : meta.current_page,
           last_page : meta.last_page,
+          first_page_url : links.first,
           next_page_url : links.next,
           prev_page_url : links.prev,
+          last_page_url : links.last,
           custom_page_url : meta.path
         }
           this.pagination=pagination;
