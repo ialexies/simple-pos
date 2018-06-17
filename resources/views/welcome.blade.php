@@ -12,18 +12,17 @@
 		<script>window.Laravel = { csrfToken: '{{ csrf_token() }}' }</script>
     <title>Laravel</title>
 
-		
-
-
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
     <style>
-      
+
     </style>
+
   </head>
   <body>
+  {{  App\Producttransaction::all()}}
   <div id="app">
 			<navbar></navbar>
 			

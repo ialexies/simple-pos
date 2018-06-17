@@ -14002,6 +14002,7 @@ window.Vue = __webpack_require__(37);
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('transaction', __webpack_require__(40));
+
 Vue.component('navbar', __webpack_require__(43));
 
 var app = new Vue({
@@ -47391,6 +47392,72 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -47456,6 +47523,332 @@ var render = function() {
     "div",
     [
       _c("h2", [_vm._v("Transactions")]),
+      _vm._v(" "),
+      _c("nav", { attrs: { "aria-label": "Page navigation example" } }, [
+        _c("ul", { staticClass: "pagination" }, [
+          _c(
+            "li",
+            {
+              staticClass: "page-item",
+              on: {
+                click: function($event) {
+                  _vm.fetchTransaction(_vm.pagination.first_page_url)
+                }
+              }
+            },
+            [
+              _c(
+                "a",
+                {
+                  staticClass: "page-link font-weight-bold",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.fetchTransaction()
+                    }
+                  }
+                },
+                [_vm._v("First")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "li",
+            {
+              staticClass: "page-item",
+              class: [{ disabled: !_vm.pagination.prev_page_url }]
+            },
+            [
+              _c(
+                "a",
+                {
+                  staticClass: "page-link text-dark font-weight-light",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.fetchTransaction(_vm.pagination.prev_page_url)
+                    }
+                  }
+                },
+                [_vm._v("prev")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("li", { staticClass: "page-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "page-link text-dark font-weight-light",
+                class: [{ "d-none": _vm.pagination.current_page > 3 }],
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    _vm.fetchTransaction(
+                      _vm.pagination.custom_page_url + "?page=1"
+                    )
+                  }
+                }
+              },
+              [_vm._v("\n              1\n            ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "page-link text-dark font-weight-light",
+                class: [{ "d-none": _vm.pagination.current_page <= 3 }],
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    _vm.fetchTransaction(
+                      _vm.pagination.custom_page_url +
+                        "?page=" +
+                        (_vm.pagination.current_page - 2)
+                    )
+                  }
+                }
+              },
+              [
+                _vm._v(
+                  "\n              " +
+                    _vm._s(_vm.pagination.current_page - 2) +
+                    "\n            "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "page-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "page-link text-dark font-weight-light",
+                class: [{ "d-none": _vm.pagination.current_page > 2 }],
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    _vm.fetchTransaction(
+                      _vm.pagination.custom_page_url + "?page=2"
+                    )
+                  }
+                }
+              },
+              [_vm._v("\n              2\n            ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "page-link  text-dark font-weight-light",
+                class: [{ "d-none": _vm.pagination.current_page <= 2 }],
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    _vm.fetchTransaction(
+                      _vm.pagination.custom_page_url +
+                        "?page=" +
+                        (_vm.pagination.current_page - 1)
+                    )
+                  }
+                }
+              },
+              [
+                _vm._v(
+                  "\n              " +
+                    _vm._s(_vm.pagination.current_page - 1) +
+                    "\n            "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "page-item disabled" }, [
+            _c(
+              "a",
+              {
+                staticClass: "page-link text-light bg-info",
+                attrs: { href: "#" }
+              },
+              [
+                _vm._v(
+                  "\n               " +
+                    _vm._s(_vm.pagination.current_page) +
+                    " of " +
+                    _vm._s(_vm.pagination.last_page) +
+                    "\n            "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "page-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "page-link  text-dark font-weight-light",
+                class: [
+                  {
+                    "d-none":
+                      _vm.pagination.current_page >=
+                      _vm.pagination.last_page - 1
+                  }
+                ],
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    _vm.fetchTransaction(
+                      _vm.pagination.custom_page_url +
+                        "?page=" +
+                        (_vm.pagination.current_page + 1)
+                    )
+                  }
+                }
+              },
+              [
+                _vm._v(
+                  "\n              " +
+                    _vm._s(_vm.pagination.current_page + 1) +
+                    "\n            "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "page-link  text-dark font-weight-light",
+                class: [
+                  {
+                    "d-none":
+                      _vm.pagination.current_page < _vm.pagination.last_page - 1
+                  }
+                ],
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    _vm.fetchTransaction(
+                      _vm.pagination.custom_page_url +
+                        "?page=" +
+                        (_vm.pagination.last_page - 1)
+                    )
+                  }
+                }
+              },
+              [
+                _vm._v(
+                  "\n              " +
+                    _vm._s(_vm.pagination.last_page - 1) +
+                    "\n            "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "page-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "page-link  text-dark font-weight-light ",
+                class: [
+                  {
+                    "d-none":
+                      _vm.pagination.current_page >=
+                      _vm.pagination.last_page - 1
+                  }
+                ],
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    _vm.fetchTransaction(
+                      _vm.pagination.custom_page_url +
+                        "?page=" +
+                        (_vm.pagination.current_page + 2)
+                    )
+                  }
+                }
+              },
+              [
+                _vm._v(
+                  "\n              " +
+                    _vm._s(_vm.pagination.current_page + 2) +
+                    "\n            "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "page-link  text-dark font-weight-light",
+                class: [
+                  {
+                    "d-none":
+                      _vm.pagination.current_page < _vm.pagination.last_page - 1
+                  }
+                ],
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    _vm.fetchTransaction(
+                      _vm.pagination.custom_page_url +
+                        "?page=" +
+                        _vm.pagination.last_page
+                    )
+                  }
+                }
+              },
+              [
+                _vm._v(
+                  "\n              " +
+                    _vm._s(_vm.pagination.last_page) +
+                    "\n            "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "li",
+            {
+              staticClass: "page-item",
+              class: [{ disabled: !_vm.pagination.next_page_url }]
+            },
+            [
+              _c(
+                "a",
+                {
+                  staticClass: "page-link text-dark font-weight-light",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.fetchTransaction(_vm.pagination.next_page_url)
+                    }
+                  }
+                },
+                [_vm._v("next")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("li", { staticClass: "page-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "page-link font-weight-bold",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    _vm.fetchTransaction(_vm.pagination.last_page_url)
+                  }
+                }
+              },
+              [_vm._v("Last")]
+            )
+          ])
+        ])
+      ]),
       _vm._v(" "),
       _vm._l(_vm.transactions, function(transaction) {
         return _c(
@@ -47870,17 +48263,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "nav",
-      { staticClass: "navbar navbar-expand-sm navbar-dark bg-info mb-2" },
-      [
-        _c("div", { staticClass: "container" }, [
-          _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
-            _vm._v("Simple POS")
+    return _c("div", [
+      _c(
+        "nav",
+        { staticClass: "navbar navbar-expand-sm navbar-dark bg-info mb-2" },
+        [
+          _c("div", { staticClass: "container" }, [
+            _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
+              _vm._v("Simple POS")
+            ])
           ])
-        ])
-      ]
-    )
+        ]
+      )
+    ])
   }
 ]
 render._withStripped = true

@@ -1,5 +1,7 @@
 <?php
 
+use App\Transaction;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,4 +15,16 @@
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+
+Route::get('/trans',function (){
+	$transaction=Transaction::findorFail(1);
+		// dd($user); 
+		
+		foreach($transaction->products as $product){
+		// dd($role);
+		echo $product->name . "<br>";
+		// dd($role);
+	}
 });
