@@ -16,7 +16,8 @@ class TransactionController extends Controller
   public function index()
   {
     //
-    $transaction = Transaction::paginate(5);
+    $transaction = Transaction::orderby('created_at','desc')->paginate(5);
+ 
     return TransactionResource::Collection($transaction);
      
   }

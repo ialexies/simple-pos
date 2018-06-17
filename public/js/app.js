@@ -13993,7 +13993,7 @@ module.exports = __webpack_require__(45);
 __webpack_require__(14);
 
 window.Vue = __webpack_require__(37);
-
+// solved by doing const Vue = require('vue').default;
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -47325,6 +47325,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -47347,16 +47369,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
-    fetchTransaction: function fetchTransaction() {
+    fetchTransaction: function fetchTransaction(page_url) {
       var _this = this;
 
-      fetch('api/transaction').then(function (res) {
+      var vm = this;
+      page_url = page_url || 'api/transaction';
+      fetch(page_url).then(function (res) {
         return res.json();
       }).then(function (res) {
         _this.transactions = res.data;
+        console.log(res);
+        vm.makePagination(res.meta, res.links);
+      }).catch(function (err) {
+        return console.log(err);
       });
+    },
+    makePagination: function makePagination(meta, links) {
+      var pagination = {
+        current_page: meta.current_page,
+        last_page: meta.last_page,
+        next_page_url: links.next,
+        prev_page_url: links.prev,
+        custom_page_url: meta.path
+      };
+      this.pagination = pagination;
     }
   }
+
 });
 
 /***/ }),
@@ -47367,26 +47406,118 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "h2",
-      [
-        _vm._v("\n\t\tTransactions\n\t\t"),
-        _vm._l(_vm.transactions, function(transaction) {
-          return _c(
-            "div",
-            { key: transaction.id, staticClass: "card card-body mb-2" },
-            [
-              _c("h3", [_vm._v(_vm._s(transaction.user))]),
-              _vm._v(" "),
-              _c("p", [_vm._v(_vm._s(transaction.items))])
-            ]
-          )
-        })
-      ],
-      2
-    )
-  ])
+  return _c(
+    "div",
+    [
+      _c("h2", [_vm._v("Transactions")]),
+      _vm._v(" "),
+      _vm._l(_vm.transactions, function(transaction) {
+        return _c(
+          "div",
+          { key: transaction.id, staticClass: "card card-body mb-2" },
+          [
+            _c("p", [_vm._v(_vm._s(transaction.user))]),
+            _vm._v(" "),
+            _c("p", [_vm._v(_vm._s(transaction.items))])
+          ]
+        )
+      }),
+      _vm._v(" "),
+      _c("nav", { attrs: { "aria-label": "Page navigation example" } }, [
+        _c(
+          "ul",
+          { staticClass: "pagination" },
+          [
+            _c(
+              "li",
+              {
+                staticClass: "page-item",
+                class: [{ disabled: !_vm.pagination.prev_page_url }]
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass: "page-link",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        _vm.fetchTransaction(_vm.pagination.prev_page_url)
+                      }
+                    }
+                  },
+                  [_vm._v("Previous")]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("li", { staticClass: "page-item disabled" }, [
+              _c(
+                "a",
+                { staticClass: "page-link text-dark", attrs: { href: "#" } },
+                [
+                  _vm._v(
+                    "\n              page " +
+                      _vm._s(_vm.pagination.current_page) +
+                      " of " +
+                      _vm._s(_vm.pagination.last_page) +
+                      "\n            "
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.pagination.last_page, function(index) {
+              return _c("div", { key: index }, [
+                _c("li", { staticClass: "page-item" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "page-link",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          _vm.fetchTransaction(
+                            _vm.pagination.custom_page_url + "?page=" + index
+                          )
+                        }
+                      }
+                    },
+                    [_vm._v(_vm._s(index))]
+                  )
+                ])
+              ])
+            }),
+            _vm._v(" "),
+            _c(
+              "li",
+              {
+                staticClass: "page-item",
+                class: [{ disabled: !_vm.pagination.next_page_url }]
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass: "page-link",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        _vm.fetchTransaction(_vm.pagination.next_page_url)
+                      }
+                    }
+                  },
+                  [_vm._v("Next")]
+                )
+              ]
+            )
+          ],
+          2
+        )
+      ])
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
